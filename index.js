@@ -15,16 +15,20 @@ const shoppingListEl = document.getElementById("shopping-list")
 
 addButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
+
+    if (inputValue){
+        push(shoppingListInDB, inputValue)
+        clearInputFieldEl()
+    }else{
+        shoppingListEl.innerHTML = "Tienes que escribir un item"
+    }
     
-    push(shoppingListInDB, inputValue)
-    
-    clearInputFieldEl()
 })
 
 onValue(shoppingListInDB, function(snapshot) {
     if (snapshot.exists()) {
         let itemsArray = Object.entries(snapshot.val())
-        console.log(itemsArray)
+        
         clearShoppingListEl()
         
         for (let i = 0; i < itemsArray.length; i++) {
